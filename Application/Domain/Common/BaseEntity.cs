@@ -9,5 +9,35 @@
 
         private readonly List<IDomainEvent> _domainEvents = new();
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+
+
+        protected BaseEntity()
+        {
+            Id = Guid.NewGuid();
+            CreatedAt = DateTime.UtcNow;
+            IsDeleted = false;
+        }
+
+        public void AddDomainEvent(IDomainEvent domainEvent)
+        {
+            _domainEvents.Add(domainEvent);
+        }
+
+        public void ClearDomainEvents()
+        {
+            _domainEvents.Clear();
+        }
+
+        public void MarkAsUpdated()
+        {
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void MarkAsDeleted()
+        {
+            IsDeleted = true;
+            UpdatedAt = DateTime.UtcNow;
+        }
     }
 }
