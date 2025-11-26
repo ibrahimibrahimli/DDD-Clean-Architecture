@@ -1,10 +1,11 @@
-🏗️ ProductCatalog - DDD + Clean Architecture + Onion Architecture
+🏗️  DDD + Clean Architecture + Onion Architecture
 
 ⚠️ Layihə hazırda inkişaf mərhələsindədir və tamamlanmayıb
 
 Bu layihə Domain-Driven Design (DDD), Clean Architecture və Onion Architecture prinsiplərinə uyğun olaraq hazırlanmış kiçik bir nümunə proyektdir. Məqsəd bu arxitektura pattern-lərini öyrənmək və praktikada tətbiq etməkdir.
 
 📋 Layihə Haqqında
+
 Bu layihə məhsul kataloqu (Product Catalog) domenində sadə CRUD əməliyyatlarını göstərir. Layihə enterprise-level arxitektura pattern-lərinin necə tətbiq olunacağını nümayiş etdirir.
 
 
