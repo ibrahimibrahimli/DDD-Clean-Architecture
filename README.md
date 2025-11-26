@@ -59,6 +59,8 @@ Activate/Deactivate Product
 Filtering & Searching
 
 
+
+[Az]
 🏗️  DDD + Clean Architecture + Onion Architecture
 
 ⚠️ Layihə hazırda inkişaf mərhələsindədir və tamamlanmayıb
