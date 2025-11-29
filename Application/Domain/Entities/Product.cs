@@ -44,5 +44,53 @@ namespace Domain.Entities
 
             return product;
         }
+
+        public void UpdateDetails(string name, string description, decimal price, string currency = "USD")
+        {
+            var oldName = Name.Value;
+            var oldPrice = Price;
+
+            Name = ProductName.Create(name);
+            Description = description ?? throw new ArgumentNullException(nameof(description));
+            Price = Money.Create(price, currency);
+
+            MarkAsUpdated();
+
+            // Domain Event
+            AddDomainEvent(new ProductUpdatedEvent(Id, Name, oldName, Price, oldPrice));
+        }
+
+        public void UpdateStock(int quantity)
+        {
+            if (quantity < 0)
+                throw new ArgumentException("Stock quantity cannot be negative", nameof(quantity));
+
+            StockQuantity = quantity;
+            MarkAsUpdated();
+        }
+
+        public void IncreaseStock(int amount)
+        {
+            if (amount <= 0)
+                throw new ArgumentException("Amount must be positive", nameof(amount));
+
+            StockQuantity += amount;
+            MarkAsUpdated();
+        }
+
+        public void DecreaseStock(int amount)
+        {
+            if (amount <= 0)
+                throw new ArgumentException("Amount must be positive", nameof(amount));
+
+            if (StockQuantity < amount)
+                throw new InvalidOperationException("Insufficient stock");
+
+            StockQuantity -= amount;
+            MarkAsUpdated();
+
+            if (StockQuantity == 0)
+                AddDomainEvent(new ProductOutOfStockEvent(Id, Name));
+        }
     }
 }
