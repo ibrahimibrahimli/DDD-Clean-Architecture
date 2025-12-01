@@ -11,5 +11,7 @@ namespace Domain.Entities
         public int StockQuantity { get; private set; }
         public string? Sku { get; private set; }
         public bool IsActive { get; private set; }
+
+        private Product() { }
     }
 }
