@@ -92,5 +92,27 @@ namespace Domain.Entities
             if (StockQuantity == 0)
                 AddDomainEvent(new ProductOutOfStockEvent(Id, Name));
         }
+
+        public void Activate()
+        {
+            if (IsActive) return;
+
+            IsActive = true;
+            MarkAsUpdated();
+        }
+
+        public void Deactivate()
+        {
+            if (!IsActive) return;
+
+            IsActive = false;
+            MarkAsUpdated();
+        }
+
+        public void Delete()
+        {
+            MarkAsDeleted();
+            AddDomainEvent(new ProductDeletedEvent(Id, Name));
+        }
     }
 }
