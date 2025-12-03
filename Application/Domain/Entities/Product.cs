@@ -1,5 +1,6 @@
 ﻿using Domain.Common;
-using Domain.Events;
+using Domain.Events.Product;
+using Domain.Events.Products;
 using Domain.ValueObjects;
 
 namespace Domain.Entities
