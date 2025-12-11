@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrustructure", "Infrustructure\Infrustructure\Infrustructure.csproj", "{F15A68CF-7F45-408C-A1BA-9EE8DC388E87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistance", "Infrustructure\Persistance\Persistance.csproj", "{280A5FF0-920D-4C07-A9F1-786C3E8FCCFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F15A68CF-7F45-408C-A1BA-9EE8DC388E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F15A68CF-7F45-408C-A1BA-9EE8DC388E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F15A68CF-7F45-408C-A1BA-9EE8DC388E87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{280A5FF0-920D-4C07-A9F1-786C3E8FCCFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{280A5FF0-920D-4C07-A9F1-786C3E8FCCFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{280A5FF0-920D-4C07-A9F1-786C3E8FCCFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{280A5FF0-920D-4C07-A9F1-786C3E8FCCFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{A5EDE227-2C31-4664-97D4-A9D58A6702F7} = {EAA20A63-787C-46FF-8677-7DF1B10D05DC}
 		{29003A77-B2D0-4ACC-ABAA-236316344BDC} = {EAA20A63-787C-46FF-8677-7DF1B10D05DC}
 		{F15A68CF-7F45-408C-A1BA-9EE8DC388E87} = {DA140FA1-AECD-4149-963D-C34D54500A15}
+		{280A5FF0-920D-4C07-A9F1-786C3E8FCCFE} = {DA140FA1-AECD-4149-963D-C34D54500A15}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6EE24BF1-4885-4564-9E78-E6F07D224C3D}
