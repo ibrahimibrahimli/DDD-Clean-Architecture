@@ -1,32 +1,84 @@
 ﻿using Application.Common.Interfaces;
+using Microsoft.EntityFrameworkCore.Storage;
+using Persistance.Context;
 
 namespace Persistance.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        public Task BeginTransactionAsync(CancellationToken cancellationToken = default)
+        readonly ApplicationDbcontext _dbContext;
+        IDbContextTransaction? _transaction;
+        IProductRepository _productRepository;
+
+        public UnitOfWork(ApplicationDbcontext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
         }
 
-        public Task CommitTransactionAsync(CancellationToken cancellationToken = default)
+        public IProductRepository Products
         {
-            throw new NotImplementedException();
+            get
+            {
+                _productRepository ??= new ProductRepository(_dbContext);
+                return _productRepository;
+            }
+        }
+
+        public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
+        {
+            _transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken);
+        }
+
+        public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
+        {
+            if (_transaction is null)
+            {
+                throw new InvalidOperationException("Transaction has not been started");
+            }
+
+            try
+            {
+                await _dbContext.SaveChangesAsync(cancellationToken);
+                await _transaction.CommitAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                await RollBackTransactionAsync(cancellationToken);
+                throw;
+            }
+            finally
+            {
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
+        }
+
+        public async Task RollBackTransactionAsync(CancellationToken cancellationToken = default)
+        {
+            if (_transaction is null)
+                return;
+
+            try
+            {
+                await _transaction.RollbackAsync(cancellationToken);
+            }
+            finally
+            {
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
+
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _transaction?.Dispose();
+            _dbContext.Dispose();
         }
 
-        public Task RollBackTransactionAsync(CancellationToken cancellationToken = default)
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
+            return await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
