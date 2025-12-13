@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using Microsoft.EntityFrameworkCore.Storage;
 using Persistance.Context;
+using Persistance.Repositories;
 
 namespace Persistance.UnitOfWork
 {
