@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Persistance.Context
 {
-    public sealed class ApplicationDbcontext : DbContext
+    public sealed class ApplicationDbContext : DbContext
     {
-        public ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Product> Products => Set<Product>();
 
@@ -14,7 +14,7 @@ namespace Persistance.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbcontext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

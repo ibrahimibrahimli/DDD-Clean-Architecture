@@ -2,17 +2,16 @@
 using Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Context;
-using System.Data.Entity;
 
 
 namespace Persistance.Repositories
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        protected readonly ApplicationDbcontext _context;
+        protected readonly ApplicationDbContext _context;
         protected readonly DbSet<T> DbSet;
 
-        public Repository(ApplicationDbcontext context)
+        public Repository(ApplicationDbContext context)
         {
             _context = context;
             DbSet = context.Set<T>();
@@ -30,21 +29,21 @@ namespace Persistance.Repositories
                 .ToListAsync(cancellationToken);    
         }
 
-        public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
         {
             await DbSet.AddAsync(entity, cancellationToken);
             return entity;
         }
 
-        public Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
-            DbSet.UpdateAsync(entity, cancellationToken);
+            DbSet.Update(entity);
             return Task.CompletedTask;
         }
 
-        public Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
         {
-            DbSet.RemoveAsync(entity, cancellationToken);
+            DbSet.Remove(entity);
             return Task.CompletedTask;
         }
     }
