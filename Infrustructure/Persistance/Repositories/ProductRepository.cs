@@ -41,34 +41,18 @@ namespace Persistance.Repositories
                 .ToListAsync(cancellationToken);
         }
 
-        public Task<Product> AddAsync(Product entity, CancellationToken cancellationToken = default)
+        public async Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await DbSet
+                .AnyAsync(p => p.Id == id, cancellationToken);
         }
 
-        public Task DeleteAsync(Product entity, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(Product entity, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
+            return await DbSet
+                .Where(p => p.IsDeleted)
+                .OrderBy(p => p.Name.Value)
+                .ToListAsync(cancellationToken);    
         }
     }
 }
