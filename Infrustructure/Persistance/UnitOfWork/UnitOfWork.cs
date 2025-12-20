@@ -7,23 +7,16 @@ namespace Persistance.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        readonly ApplicationDbcontext _dbContext;
+        readonly ApplicationDbContext _dbContext;
         IDbContextTransaction? _transaction;
         IProductRepository _productRepository;
 
-        public UnitOfWork(ApplicationDbcontext dbContext)
+        public UnitOfWork(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public IProductRepository Products
-        {
-            get
-            {
-                _productRepository ??= new ProductRepository(_dbContext);
-                return _productRepository;
-            }
-        }
+        public IProductRepository Products => _productRepository;
 
         public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
         {
