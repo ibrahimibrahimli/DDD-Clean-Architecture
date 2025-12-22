@@ -21,6 +21,8 @@ namespace Application.Features.Products.Queries.GetActiveProducts
         {
             var products = await _unitOfWork.Products.GetActiveProductsAsync(cancellationToken);
 
+            products = [.. products.Where(p => p.IsActive)];
+
             var productDtos = _mapper.Map<IReadOnlyList<ProductListDto>>(products);
 
             return Result.Success(productDtos);
