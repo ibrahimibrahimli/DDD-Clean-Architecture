@@ -47,14 +47,36 @@ namespace Infrustructure.Services
             }
         }
 
-        public Task SendProductCreatedNotificationAsync(string productName, string recipientEmail, CancellationToken cancellationToken = default)
+        public async Task SendProductCreatedNotificationAsync(string productName, string recipientEmail, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var subject = "New product created";
+            var body = $@"
+            <html>
+                <body>
+                    <h2>New Product Added</h2>
+                    <p>A new product has been created in the system:</p>
+                    <p><strong>{productName}</strong></p>
+                    <p>Thank you for using our system!</p>
+                </body>
+            </html>";
+
+            await SendEmailAsync(recipientEmail, subject, body, cancellationToken);
         }
 
-        public Task SendProductOutOfStockNotificationAsync(string productName, string recipientEmail, CancellationToken cancellationToken = default)
+        public async Task SendProductOutOfStockNotificationAsync(string productName, string recipientEmail, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var subject = "Product Out of Stock Alert";
+            var body = $@"
+            <html>
+                <body>
+                    <h2>Stock Alert</h2>
+                    <p>The following product is now out of stock:</p>
+                    <p><strong>{productName}</strong></p>
+                    <p>Please reorder as soon as possible.</p>
+                </body>
+            </html>";
+
+            await SendEmailAsync(recipientEmail, subject, body, cancellationToken);
         }
     }
 }
