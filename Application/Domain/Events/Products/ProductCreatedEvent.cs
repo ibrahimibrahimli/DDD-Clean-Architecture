@@ -1,5 +1,6 @@
 ﻿using Domain.Common;
 using Domain.ValueObjects;
+using MediatR;
 
 namespace Domain.Events.Product
 {
@@ -7,7 +8,7 @@ namespace Domain.Events.Product
         Guid ProductId,
         ProductName ProductName,
         Money Price
-        ) : IDomainEvent
+        ) : IDomainEvent, INotification
     {
         public Guid EventId { get; } = Guid.NewGuid();
 
